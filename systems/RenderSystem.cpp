@@ -1,15 +1,16 @@
-#include "Renderer.h"
+#include "systems/RenderSystem.h"
 #include <iostream>
 #include <vector>
 #include <windows.h>
 
-void Renderer::render(const Snake& snake,
-                      const Food& food,
-                      int score,
-                      GameMode mode,
-                      bool specialFoodActive,
-                      const Point& specialFoodPosition,
-                      int specialFoodDisplayValue) {
+void RenderSystem::render(const Snake& snake,
+                          const Food& food,
+                          int score,
+                          GameMode mode,
+                          bool specialFoodActive,
+                          const Point& specialFoodPosition,
+                          int specialFoodDisplayValue,
+                          int snakeColor) {
     const int width = 20;
     const int height = 20;
     std::vector<std::vector<char>> buffer(height, std::vector<char>(width, ' '));
@@ -38,9 +39,8 @@ void Renderer::render(const Snake& snake,
         buffer[specialFoodPosition.y][specialFoodPosition.x] = static_cast<char>('0' + specialFoodDisplayValue);
     }
 
-    // 设置蛇的颜色，根据分数每 50 分变化一次（循环 1..14，避免黑色/白色）
-    int snakeColor = (score / 50) % 14 + 1;
-    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), snakeColor);
+    // 设置蛇的颜色：由外部按“速度档位”决定（白/黄/橙/红）
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), static_cast<WORD>(snakeColor));
 
     for (const auto& segment : snake.getBody()) {
         buffer[segment.y][segment.x] = (segment == snake.getHead()) ? '@' : 'O'; // 蛇头为 @，身体为 O
@@ -89,10 +89,10 @@ void Renderer::render(const Snake& snake,
         std::cout << '\n';
     }
 
-    // 输出分数
-    SetConsoleTextAttribute(hConsole, 15); // 确保分数显示为白色
-    std::cout << "Score: " << score << '\n';
+    // 输出模式与分数（模式在上，分数在下）
+    SetConsoleTextAttribute(hConsole, 15); // 确保文本显示为白色
     std::cout << "Mode: " << gameModeToString(mode) << '\n';
+    std::cout << "Score: " << score << '\n';
 
     // 恢复默认颜色
     SetConsoleTextAttribute(hConsole, 15);

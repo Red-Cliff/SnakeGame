@@ -1,8 +1,7 @@
-#include "SaveSystem.h"
+#include "persistence/SaveSystem.h"
 #include <fstream>
 #include <iostream>
 #include <cstdint>
-#include "Food.h" // 确保包含定义 Position 的头文件
 
 namespace {
     constexpr std::uint32_t kSaveMagic = 0x56534753; // 'S' 'G' 'S' 'V'

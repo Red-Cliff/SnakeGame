@@ -1,8 +1,8 @@
 #ifndef SAVESYSTEM_H
 #define SAVESYSTEM_H
 
-#include "Snake.h"
-#include "Food.h"
+#include "gameplay/Snake.h"
+#include "gameplay/Food.h"
 #include "GameMode.h"
 #include <string>
 

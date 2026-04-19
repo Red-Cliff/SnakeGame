@@ -1,7 +1,7 @@
-#include "Game.h"
+#include "core/GameLoop.h"
 
 int main() {
-    Game game;
+    GameLoop game;
     game.run();
     return 0;
 }

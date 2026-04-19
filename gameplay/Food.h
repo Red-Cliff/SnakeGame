@@ -1,7 +1,7 @@
 #ifndef FOOD_H
 #define FOOD_H
 
-#include "Snake.h" // 引入完整的 Point 定义
+#include "gameplay/Snake.h" // 引入完整的 Point 定义
 
 struct Point;
 

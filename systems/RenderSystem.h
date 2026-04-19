@@ -1,11 +1,11 @@
-#ifndef RENDERER_H
-#define RENDERER_H
+#ifndef RENDERSYSTEM_H
+#define RENDERSYSTEM_H
 
-#include "Snake.h"
-#include "Food.h"
+#include "gameplay/Snake.h"
+#include "gameplay/Food.h"
 #include "GameMode.h"
 
-class Renderer {
+class RenderSystem {
 public:
     void render(const Snake& snake,
                 const Food& food,
@@ -13,7 +13,8 @@ public:
                 GameMode mode,
                 bool specialFoodActive,
                 const Point& specialFoodPosition,
-                int specialFoodDisplayValue);
+                int specialFoodDisplayValue,
+                int snakeColor);
 };
 
 #endif
